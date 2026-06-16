@@ -1,4 +1,4 @@
-export interface VocabularyItems {
+export interface VocabularyItem {
   lessonId: number;
   wordEn: string;
   wordRu: string;
@@ -14,6 +14,6 @@ export type TaskType = 'context-input' | 'context-choice' | 'def-input' | 'def-c
 export interface LessonTask {
   id: string;
   type: TaskType;
-  item: VocabularyItems;
+  item: VocabularyItem;
   options?: string[];
 }

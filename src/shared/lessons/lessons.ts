@@ -1,7 +1,68 @@
-export const lessons = [
+import { LessonItem } from "../types/lessons";
+
+export const lessons: LessonItem[] = [
   {
-    title: "entertainment/art/films",
-    id: 1,
-    vocabulary: [],
+    "title": "entertainment/art/films",
+    "id": 1
   },
+  {
+    "title": "sightseeing",
+    "id": 2
+  },
+  {
+    "title": "sports and interests",
+    "id": 3
+  },
+  {
+    "title": "accommodation / slang",
+    "id": 4
+  },
+  {
+    "title": "nature",
+    "id": 5
+  },
+  {
+    "title": "society/superstitions",
+    "id": 6
+  },
+  {
+    "title": "crime and punishment",
+    "id": 7
+  },
+  {
+    "title": "transport and travel",
+    "id": 8
+  },
+  {
+    "title": "banks and money",
+    "id": 9
+  },
+  {
+    "title": "socialising and stereotypes",
+    "id": 10
+  },
+  {
+    "title": "careers and studying",
+    "id": 11
+  },
+  {
+    "title": "health and medicine",
+    "id": 12
+  },
+  {
+    "title": "life-changing events and media",
+    "id": 13
+  },
+  {
+    "title": "food and things you need",
+    "id": 14
+  },
+  {
+    "title": "business",
+    "id": 15
+  },
+  {
+    "title": "clothing and fashion",
+    "id": 16
+  }
 ];

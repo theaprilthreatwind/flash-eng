@@ -35,3 +35,23 @@
     @apply border-2 border-primary/20 text-primary px-6 py-3 rounded-xl font-bold hover:bg-primary/5 transition-all active:scale-95;
   }
 }
+
+@keyframes emojiFloat {
+  0% {
+    transform: translate(0, 0) scale(0.4) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: translate(calc(var(--tx) * 0.15), calc(var(--ty) * 0.15)) scale(1.4) rotate(calc(var(--rot) * 0.3));
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(0.6) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+.animate-emoji {
+  animation: emojiFloat 1.4s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+

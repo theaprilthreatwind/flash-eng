@@ -21,7 +21,7 @@ export function LessonCard({ id, title }: LessonCardProps) {
       <div className="flex items-center justify-between">
 
         <Link 
-          href={`/lesson/${id}`} 
+          href={`/lessons/${id}`} 
           className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl font-bold text-sm hover:opacity-90 transition-all group/btn shrink-0"
         >
           Start

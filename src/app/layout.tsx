@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-background text-foreground antialiased`}>
         <div className="flex min-h-screen">
           <Sidebar />
-          <main className="flex-1 pl-[256px]">
+          <main className="flex-1 pl-0 md:pl-[256px] pb-[64px] md:pb-0">
             {children}
           </main>
         </div>

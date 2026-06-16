@@ -30,12 +30,6 @@ export default function LessonHeader({
             <span className="text-slate font-medium">{lessonTheme}</span>
           </div>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-xl">
-          <Flame size={18} className="text-success fill-success" />
-          <span className="text-success font-bold uppercase text-xs tracking-widest">
-            8 Day Streak
-          </span>
-        </div>
       </div>
 
       <div className="space-y-2">

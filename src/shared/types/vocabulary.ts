@@ -5,6 +5,7 @@ export interface VocabularyItem {
   partOfSpeech: string;
   definitionEn: string;
   sentenceEn: string;
+  sentenceAnswer: string;
   exampleEn: string;
   exampleRu: string;
 }

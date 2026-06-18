@@ -40,7 +40,7 @@ export function useLessonPractice(lessonId: string) {
 
   const handleCheck = (cardElement: HTMLDivElement | null) => {
     if (!currentTask) return;
-    const isRight = userInput.trim().toLowerCase() === currentTask.item.wordEn.toLowerCase();
+    const isRight = userInput.trim().toLowerCase() === currentTask.item.sentenceAnswer.toLowerCase();
     setIsCorrect(isRight);
 
     if (!(currentTaskIndex in answeredTasks)) {

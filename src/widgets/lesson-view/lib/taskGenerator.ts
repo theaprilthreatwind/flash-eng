@@ -20,12 +20,12 @@ export function generateTasks(currentLessonWords: VocabularyItem[]): LessonTask[
     
     if (randomType === "context-choice" || randomType === "def-choice") {
       const distractors = currentLessonWords
-        .filter((w) => w.wordEn !== word.wordEn)
+        .filter((w) => w.sentenceAnswer !== word.sentenceAnswer)
         .sort(() => Math.random() - 0.5)
         .slice(0, 3)
-        .map((w) => w.wordEn);
+        .map((w) => w.sentenceAnswer);
         
-      task.options = [word.wordEn, ...distractors].sort(() => Math.random() - 0.5);
+      task.options = [word.sentenceAnswer, ...distractors].sort(() => Math.random() - 0.5);
     }
     
     return task;

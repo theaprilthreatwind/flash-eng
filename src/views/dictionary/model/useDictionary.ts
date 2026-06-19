@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { VocabularyItem } from "@/entities/vocabulary";
 import { vocabularyItems } from "@/shared/vocabularyItems/vocabularyItems";
 
 export function useDictionary() {

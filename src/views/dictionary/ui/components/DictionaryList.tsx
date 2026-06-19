@@ -1,4 +1,4 @@
-import { VocabularyItem } from "@/shared/types/vocabulary";
+import { VocabularyItem } from "@/entities/vocabulary";
 import WordCard from "./WordCard";
 
 interface ListProps {

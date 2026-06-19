@@ -1,6 +1,4 @@
-import { LessonItem } from "@/entities/lesson";
-
-export const lessons: LessonItem[] = [
+[
   {
     "title": "entertainment/art/films",
     "id": 1
@@ -65,4 +63,4 @@ export const lessons: LessonItem[] = [
     "title": "clothing and fashion",
     "id": 16
   }
-];
+]

@@ -1,4 +1,4 @@
-import { VocabularyItem } from "@/shared/types/vocabulary";
+import { VocabularyItem } from "@/entities/vocabulary";
 
 export default function WordCard({ word }: { word: VocabularyItem }) {
   return (

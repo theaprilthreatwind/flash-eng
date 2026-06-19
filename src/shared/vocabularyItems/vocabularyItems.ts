@@ -1,4 +1,4 @@
-import { VocabularyItem } from "../types/vocabulary";
+import { VocabularyItem } from "@/entities/vocabulary";
 
 export const vocabularyItems: VocabularyItem[] = [
   {

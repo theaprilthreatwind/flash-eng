@@ -1,4 +1,4 @@
-import { VocabularyItem, LessonTask, TaskType } from "@/shared/types/vocabulary";
+import { VocabularyItem, LessonTask, TaskType } from "@/entities/vocabulary";
 
 export function generateTasks(currentLessonWords: VocabularyItem[]): LessonTask[] {
   const taskTypes: TaskType[] = [

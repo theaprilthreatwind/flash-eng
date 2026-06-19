@@ -1,5 +1,5 @@
 import { apiFetch } from "@/shared/api/base";
-import { VocabularyItem } from "@/shared/types/vocabulary";
+import { VocabularyItem } from "@/entities/vocabulary";
 
 export const getVocabularyByLesson = (lessonId: number) => 
   apiFetch<VocabularyItem[]>(`/vocabulary?lesson=${lessonId}`);

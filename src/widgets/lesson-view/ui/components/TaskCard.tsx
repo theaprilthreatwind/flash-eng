@@ -1,5 +1,5 @@
 import { Lightbulb, Info } from "lucide-react";
-import { LessonTask } from "@/shared/types/vocabulary";
+import { LessonTask } from "@/entities/vocabulary";
 import TaskCardContent from "./TaskCardContent";
 
 interface TaskCardProps {

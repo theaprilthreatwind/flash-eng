@@ -1,4 +1,4 @@
-import { LessonTask } from "@/shared/types/vocabulary";
+import { LessonTask } from "@/entities/vocabulary";
 
 interface TaskCardContentProps {
   currentTask: LessonTask;

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronLeft, Flame } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
 interface LessonHeaderProps {
   lessonId: string;

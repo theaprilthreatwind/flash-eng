@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { vocabularyItems } from "@/shared/vocabularyItems/vocabularyItems";
-import { lessons } from "@/shared/lessons/lessons";
+import { LessonItem } from "@/entities/lesson";
 import { generateTasks } from "../lib/taskGenerator";
 import { playSound } from "../lib/sound";
 import { generateFloatingEmojis, FloatingEmoji } from "../lib/emojis";
+import { VocabularyItem } from "@/entities/vocabulary";
 
 export function useLessonPractice(lessonId: string) {
   const cardRef = useRef<HTMLDivElement | null>(null);
@@ -14,10 +14,33 @@ export function useLessonPractice(lessonId: string) {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [skippedCount, setSkippedCount] = useState(0);
-  const [answeredTasks, setAnsweredTasks] = useState<{ [index: number]: "correct" | "incorrect" | "skipped" }>({});
+  const [answeredTasks, setAnsweredTasks] = useState<{
+    [index: number]: "correct" | "incorrect" | "skipped";
+  }>({});
   const [isFinished, setIsFinished] = useState(false);
   const [floatingEmojis, setFloatingEmojis] = useState<FloatingEmoji[]>([]);
   const [mounted, setMounted] = useState(false);
+  
+  const [lessonsList, setLessonsList] = useState<LessonItem[] | undefined>(undefined);
+  const [vocabularyItems, setVocabularyItems] = useState<
+    VocabularyItem[] | undefined
+  >(undefined);
+
+  useEffect(() => {
+    fetch("/lessons.json")
+      .then((response) => response.json())
+      .then((data) => setLessonsList(data))
+      .catch((error: Error) => console.error(error.message));
+  }, []);
+
+  useEffect(() => {
+    fetch("/vocabularyItems.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setVocabularyItems(data);
+      })
+      .catch((error: Error) => console.error(error.message));
+  }, []);
 
   useEffect(() => {
     const handle = requestAnimationFrame(() => {
@@ -27,28 +50,48 @@ export function useLessonPractice(lessonId: string) {
   }, []);
 
   const currentLessonWords = useMemo(
-    () => vocabularyItems.filter((w) => w.lessonId === parseInt(lessonId)),
-    [lessonId]
+    () => vocabularyItems ? vocabularyItems.filter((w) => w.lessonId === parseInt(lessonId)) : [],
+    [vocabularyItems, lessonId],
   );
   const currentLessonTheme = useMemo(() => {
-    const l = lessons.find((item) => item.id === parseInt(lessonId));
+    if (!lessonsList) return "";
+    const l = lessonsList.find((item) => item.id === parseInt(lessonId));
     return l ? l.title : "";
-  }, [lessonId]);
+  }, [lessonsList, lessonId]);
 
-  const tasks = useMemo(() => generateTasks(currentLessonWords), [currentLessonWords]);
+  const tasks = useMemo(
+    () => generateTasks(currentLessonWords),
+    [currentLessonWords],
+  );
   const currentTask = tasks[currentTaskIndex];
+
+  if (vocabularyItems === undefined || lessonsList === undefined) {
+    return { mounted: false };
+  }
 
   const handleCheck = (cardElement: HTMLDivElement | null) => {
     if (!currentTask) return;
-    const isRight = userInput.trim().toLowerCase() === currentTask.item.sentenceAnswer.toLowerCase();
+    const targetAnswer = (currentTask.type === "def-input" || currentTask.type === "def-choice")
+      ? currentTask.item.wordEn
+      : currentTask.item.sentenceAnswer;
+
+    const isRight =
+      userInput.trim().toLowerCase() ===
+      targetAnswer.toLowerCase();
     setIsCorrect(isRight);
 
     if (!(currentTaskIndex in answeredTasks)) {
       if (isRight) {
-        setAnsweredTasks((prev) => ({ ...prev, [currentTaskIndex]: "correct" }));
+        setAnsweredTasks((prev) => ({
+          ...prev,
+          [currentTaskIndex]: "correct",
+        }));
         setCorrectCount((c) => c + 1);
       } else {
-        setAnsweredTasks((prev) => ({ ...prev, [currentTaskIndex]: "incorrect" }));
+        setAnsweredTasks((prev) => ({
+          ...prev,
+          [currentTaskIndex]: "incorrect",
+        }));
         setIncorrectCount((i) => i + 1);
       }
     }
@@ -56,7 +99,9 @@ export function useLessonPractice(lessonId: string) {
     const newEmojis = generateFloatingEmojis(isRight, cardElement);
     setFloatingEmojis((prev) => [...prev, ...newEmojis]);
     setTimeout(() => {
-      setFloatingEmojis((prev) => prev.filter((item) => !newEmojis.find((n) => n.id === item.id)));
+      setFloatingEmojis((prev) =>
+        prev.filter((item) => !newEmojis.find((n) => n.id === item.id)),
+      );
     }, 1400);
   };
 
@@ -93,10 +138,25 @@ export function useLessonPractice(lessonId: string) {
   };
 
   return {
-    tasks, currentTask, currentTaskIndex, userInput, setUserInput,
-    isCorrect, showHint, setShowHint, correctCount, incorrectCount,
-    skippedCount, isFinished, floatingEmojis, currentLessonTheme,
-    handleCheck, advanceNext, handleSkip, handleRestart, mounted,
+    tasks,
+    currentTask,
+    currentTaskIndex,
+    userInput,
+    setUserInput,
+    isCorrect,
+    showHint,
+    setShowHint,
+    correctCount,
+    incorrectCount,
+    skippedCount,
+    isFinished,
+    floatingEmojis,
+    currentLessonTheme,
+    handleCheck,
+    advanceNext,
+    handleSkip,
+    handleRestart,
+    mounted,
     cardRef,
   };
 }

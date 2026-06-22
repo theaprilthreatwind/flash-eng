@@ -1,17 +1,20 @@
 import { Search } from "lucide-react";
+import { LessonItem } from "@/entities/lesson";
 
 interface FiltersProps {
   searchTerm: string;
   setSearchTerm: (val: string) => void;
   selectedLesson: number | "all";
   setSelectedLesson: (val: number | "all") => void;
+  lessons: LessonItem[];
 }
 
-export default function DictionaryFilters({
+export function DictionaryFilters({
   searchTerm,
   setSearchTerm,
   selectedLesson,
   setSelectedLesson,
+  lessons,
 }: FiltersProps) {
   return (
     <div className="flex flex-col md:flex-row gap-4">
@@ -33,12 +36,13 @@ export default function DictionaryFilters({
         className="px-6 py-4 bg-white border border-indigo-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all shadow-sm text-navy font-bold appearance-none cursor-pointer"
       >
         <option value="all">All Lessons</option>
-        {Array.from({ length: 18 }, (_, i) => (
-          <option key={i + 1} value={i + 1}>
-            Lesson {i + 1}
+        {lessons.map((lesson) => (
+          <option key={lesson.id} value={lesson.id}>
+            Lesson {lesson.id}: {lesson.title}
           </option>
         ))}
       </select>
     </div>
   );
 }
+

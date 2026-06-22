@@ -2,14 +2,26 @@ import { VocabularyItem } from "@/entities/vocabulary";
 import WordCard from "./WordCard";
 
 interface ListProps {
-  filteredWords: VocabularyItem[];
+  filteredWords: VocabularyItem[] | undefined;
 }
 
 export default function DictionaryList({ filteredWords }: ListProps) {
+  if (filteredWords === undefined) {
+    return (
+      <div className="text-center py-24 bg-white rounded-3xl border border-dashed border-indigo-200">
+        <p className="text-slate font-medium">
+          Loading...
+        </p>
+      </div>
+    );
+  }
+
   if (filteredWords.length === 0) {
     return (
       <div className="text-center py-24 bg-white rounded-3xl border border-dashed border-indigo-200">
-        <p className="text-slate font-medium">No words found matching your search.</p>
+        <p className="text-slate font-medium">
+          No words found matching your search.
+        </p>
       </div>
     );
   }

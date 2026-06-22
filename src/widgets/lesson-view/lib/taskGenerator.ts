@@ -18,7 +18,7 @@ export function generateTasks(currentLessonWords: VocabularyItem[]): LessonTask[
       item: word,
     };
     
-    if (randomType === "context-choice" || randomType === "def-choice") {
+    if (randomType === "context-choice") {
       const distractors = currentLessonWords
         .filter((w) => w.sentenceAnswer !== word.sentenceAnswer)
         .sort(() => Math.random() - 0.5)
@@ -26,6 +26,14 @@ export function generateTasks(currentLessonWords: VocabularyItem[]): LessonTask[
         .map((w) => w.sentenceAnswer);
         
       task.options = [word.sentenceAnswer, ...distractors].sort(() => Math.random() - 0.5);
+    } else if (randomType === "def-choice") {
+      const distractors = currentLessonWords
+        .filter((w) => w.wordEn !== word.wordEn)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3)
+        .map((w) => w.wordEn);
+        
+      task.options = [word.wordEn, ...distractors].sort(() => Math.random() - 0.5);
     }
     
     return task;

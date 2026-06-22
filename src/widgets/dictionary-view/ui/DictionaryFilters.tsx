@@ -38,7 +38,7 @@ export function DictionaryFilters({
         <option value="all">All Lessons</option>
         {lessons.map((lesson) => (
           <option key={lesson.id} value={lesson.id}>
-            Lesson {lesson.id}: {lesson.title}
+            Lesson {lesson.id}
           </option>
         ))}
       </select>
